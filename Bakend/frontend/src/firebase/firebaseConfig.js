@@ -1,15 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {getAuth,GoogleAuthProvider} from "firebase/auth"
-const firebaseConfig = {
-  apiKey: "AIzaSyCfhQc5ekDc4yoaLr5rJu3fZWOK6wKR_QM",
-  authDomain: "internshala-a3397.firebaseapp.com",
-  projectId: "internshala-a3397",
-  storageBucket: "internshala-a3397.appspot.com",
-  messagingSenderId: "488150698672",
-  appId: "1:488150698672:web:0149e68591bd5330aec975",
-  measurementId: "G-JXN9ZMC473"
-};
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBeq5uY4ly8zyI5xoCsYJV6-lSeLi9_LRo",
+    authDomain: "demointernshala.firebaseapp.com",
+    projectId: "demointernshala",
+    storageBucket: "demointernshala.appspot.com",
+    messagingSenderId: "156568512891",
+    appId: "1:156568512891:web:c058c0a44256bb0fd635de",
+    measurementId: "G-YC41SBSZ2S"
+  };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

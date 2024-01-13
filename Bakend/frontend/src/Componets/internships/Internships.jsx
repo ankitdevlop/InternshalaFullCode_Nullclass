@@ -39,6 +39,7 @@ function Internships() {
   try {
     const response=await axios.get('https://internareabackend.onrender.com/api/intern');
     setInternOpning(response.data.data)
+    setFilteredInternships(response.data.data)
   } catch (error) {
     console.log(error)
   }
@@ -109,6 +110,7 @@ function Internships() {
 
   </div>
   <p className='font-bold text-lg '>
+    
     {filteredInternships.length} Total Internships &nbsp;&nbsp;<i class="bi bi-chevron-down"> </i>
 
     </p>
@@ -135,10 +137,10 @@ function Internships() {
             <p className='mt-3'> <i class="bi bi-cash-stack"></i> Stipend  <br />{item.stipend}</p>
           </div>
             <p className='bg-slate-300 text-slate-500 text-sm w-16 mt-2'>  internship</p>
-            <p className='text-green-300 text-sm mt-4'> <i class="bi bi-clock-history"></i> 2 days ago</p>
+            <p className='text-green-300 text-sm mt-4'> <i class="bi bi-clock-history"></i> {new Date(item?.createdAt).toLocaleDateString()}</p>
             </div>
             <div id='hr' className="flex justify-end mb-2">
-              <hr  className='bg-slate-500 w-full '  />
+           
               <Link to={`/details?q=${item?._id}`}>
               <button id='viewButtons' className='bg-transparent text-blue-500'>View Details</button>
               </Link>

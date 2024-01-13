@@ -19,3 +19,23 @@
 display: none;
 }
 }
+.check{
+background: #078edd;
+    font-size: 16px;
+    color: lightgreen;
+    font-weight: bolder;
+
+}
+.check:hover{
+    color: greenyellow;
+}
+.reject{
+    background: #078edd;
+    font-size: 16px;
+    color: red;
+
+    font-weight: bolder;
+}
+.reject:hover{
+    color: rgb(224, 115, 115);
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import "./details.css"
 import { useSelector } from 'react-redux';
@@ -97,7 +97,7 @@ const resumeSubmitted=async()=>{
             <p className='mt-3  mr-3'> <i class="bi bi-hourglass-split"></i>&nbsp; Apply By  <br />{InterShipDetails.stipend}</p>
           </div>
           <div className="flex">
-            <p className='bg-green-100 text-green-400 rounded-md ml-3 text-sm'><i class="bi bi-clock-history"></i>&nbsp; Posted just now</p>
+            <p className='bg-green-100 text-green-400 rounded-md ml-3 text-sm'><i class="bi bi-clock-history"></i>&nbsp; Posted {new Date(InterShipDetails?.createdAt).toLocaleDateString()}</p>
 
             <p className='bg-slate-100 text-slate-400 text-sm rounded-md ml-3'> Internship with job offer</p>
           </div>
@@ -144,7 +144,7 @@ Learn Business Communication
         <div div className='application-page'>
         <div className="bg">
 
-       <button className='close' onClick={hideDiv}><i class="bi bi-x"></i></button>
+       <button className='close2' onClick={hideDiv}><i class="bi bi-x"></i></button>
        <p>Applying for {InterShipDetails.title}</p>
      
 <p className='mt-3 text-xl font-bold text-start mb-3'>About {InterShipDetails.company}</p>
@@ -216,7 +216,16 @@ Learn Business Communication
 
     {/* <input type="file" name="resume" id="resume" placeholder='Chose File' /> */}
       <div className="submit flex justify-center">
-        <button className='submit-btn' onClick={resumeSubmitted} >Submit application</button>
+        {user?(
+    <button className='submit-btn' onClick={resumeSubmitted} >Submit application</button>
+        ):(
+          <Link to={"/register"}>
+          <button className='submit-btn'  >Submit application</button>
+          </Link>
+        )
+          
+        }
+    
       </div>
         </div>
         </div>

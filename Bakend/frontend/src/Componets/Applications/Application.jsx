@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./applications.css"
 import { Link } from 'react-router-dom';
+
+
 export default function Application() {
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState(null);
@@ -20,12 +22,16 @@ export default function Application() {
 
     fetchApplications();
   }, []);
+
+
+  // Application Request
+
   return (
     <div >
-      <h1 className='text-3xl font-semibold'>My applications</h1>
+      <h1 className='text-3xl font-semibold mt-3'>Total Applications</h1>
     <div className='flex justify-center' id='table'>
 
-<div class="applications flex flex-col">
+<div class="applications flex flex-col mt-7">
   <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
       <div class="overflow-hidden">
@@ -36,6 +42,8 @@ export default function Application() {
               <th scope="col" class="px-6 py-4">Company</th>
               <th scope="col" class="px-6 py-4">Category</th>
               <th scope="col" class="px-6 py-4">Applied On</th>
+              <th scope="col" class="px-6 py-4">Applied By</th>
+              <th scope="col" class="px-6 py-4">View In Detail</th>
               <th scope="col" class="px-6 py-4">Application Status</th>
             </tr>
           </thead>
@@ -49,7 +57,9 @@ export default function Application() {
               <td class="whitespace-nowrap px-6 py-4">{app.company}</td>
               <td class="whitespace-nowrap px-6 py-4">{app.category}   &nbsp; &nbsp;<i class="bi bi-arrow-up-right-square text-blue-300"></i></td>
               <td class="whitespace-nowrap px-6 py-4">{new Date(app?.createdAt).toLocaleDateString()}</td>
-              <td class="whitespace-nowrap px-6 py-4 w-14"><span className='bg-blue-200 rounded-2xl w-24 text-blue-500'>Applied</span> <i class="bi bi-question-circle text-blue-400"></i></td>
+              <td class="whitespace-nowrap px-6 py-4">{app.user.name}</td>
+              <td class="whitespace-nowrap px-6 py-4 text-center text-blue-700 text-lg cursor-pointer"><Link to={`/applicationsDetail?a=${app?._id}`}><i class="bi bi-envelope-open"></i></Link></td>
+              <td>{app.status}</td>
             </tr>
                     ))}
           </tbody>
@@ -71,6 +81,7 @@ export default function Application() {
         <h2 className="tracking-widest text-xs title-font font-medium mb-1">{app.company}</h2>
         <h1 className="justify-start text-lg text-gray-900 mb-3 text-left font-bold">{app.category}</h1>
         <div className="flex items-center flex-wrap">
+          <Link  to={`/applicationsDetail?a=${app?._id}`}>
           <p className="text-indigo-500 inline-flex cursor-pointer items-center md:mb-2 lg:mb-0">
             Review Application
             <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -78,9 +89,13 @@ export default function Application() {
               <path d="M12 5l7 7-7 7"></path>
             </svg>
           </p>
+          </Link>
           &nbsp; &nbsp; &nbsp;
           <span className="text-gray-400 inline-flex items-center leading-none text-sm">
             <i className="bi bi-calendar"></i> Applied on &nbsp; &nbsp; {new Date(app?.createdAt).toLocaleDateString()}
+          </span>
+          <span className="text-gray-400 inline-flex items-center leading-none text-sm">
+       &nbsp; &nbsp; &nbsp;{app.status}
           </span>
         </div>
       </div>

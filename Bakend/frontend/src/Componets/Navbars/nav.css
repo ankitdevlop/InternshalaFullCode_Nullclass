@@ -4,7 +4,7 @@
 }
 img{
     width: 120px;
-    margin-top: -13px;
+    margin-top: -10px;
     margin-left: 34px;
 }
 nav{
@@ -30,7 +30,7 @@ ul a{
 
 .search{
     position: relative;
-    left: 26%;
+    left: 34%;
   
     margin-top: 15px;
     
@@ -54,7 +54,7 @@ font-weight: 200;
 }
 .auth{
     position: relative;
-    left: 26%;
+    left: 33%;
     margin-top: -6px;
     display: flex;
     justify-content: space-around;
@@ -173,29 +173,68 @@ left: 22%;
 .logout{
   position: relative;
   width: 100px;
-  left: 438%;
+  left: 575%;
   top: -8px;
+
 }
 #picpro{
  
   position: relative;
-  left: 526%;
+  left: 666%;
   top: 8px;
 }
 .proName{
   position: relative;
   font-weight: bold;
-  left: 626%;
+  left: 767%;
   top: -28px 
 }
 
 .profile-dropdown{
   position: absolute;
-  top: 8%;
+  top: 10%;
   left: 65%;
   background: white;
-  box-shadow:  0px 0px 5px -2px black;
+ 
   height: 250px;
   z-index: 1;;
 }
+.profile-dropdown-2{
+  position: absolute;
+  top: 11%;
+  left: 10%;
+  background: white;
+  width: 30%;
+  height: 60%;
+  z-index: 1;;
+  display: flex;
+  justify-content: space-around;
+}
+.profile-dropdown-2 p{
+  margin-left: 6px;
+  margin-top: 4px;
+  margin-right: 3px;
 
+}
+.profile-dropdown-1 p{
+  margin-left: 6px;
+  margin-top: 4px;
+  margin-right: 3px;
+
+}
+.profile-dropdown-1{
+  position: absolute;
+  top: 10%;
+  left: 24%;
+  background: white;
+width: 30%;
+  height: 60%;
+  z-index: 1;
+  display: flex;
+  justify-content: space-around;
+}
+
+.line{
+  width: 0.5px;
+
+}

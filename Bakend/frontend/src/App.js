@@ -17,12 +17,19 @@ import { login, logout, selectUser } from './Features/Userslice';
 import { useEffect } from 'react';
 import Profile from './Componets/Profile/Profile';
 import Application from './Componets/Applications/Application';
-import Example from './Componets/internships/Example'
+
 import DownNav from './Componets/Navbars/DownNav';
+import DeatilOfApplication from './Componets/Applications/DeatilOfApplication';
+import Admin from './Componets/Applications/Admin';
+import AdminPanel from './Componets/Admin/AdminPanel';
+import PostJob from './Componets/Admin/PostJob';
+import PostInternship from './Componets/Admin/PostInternship';
+import UserApplications from './Componets/Applications/UserApplications';
 
 
 function App() {
   const user=useSelector(selectUser);
+ 
   const dispatch=useDispatch();
 
   useEffect(() => {
@@ -42,11 +49,13 @@ function App() {
       }
   })
   },[dispatch] );
+  
   return (
 
     <>
 <Navbar/>
 {/* <Example/> */}
+
 <Routes>
 
     <Route path='/register' element={<Register />} />
@@ -57,6 +66,12 @@ function App() {
     <Route path='/' element={<Home/>} />
     <Route path='/profile' element={<Profile/>} />
     <Route path='/applications' element={<Application/>} />
+    <Route path='/applicationsDetail' element={<DeatilOfApplication/>} />
+    <Route path='/adminLog' element={<Admin/>} />
+    <Route path='/adminPanel' element={<AdminPanel/>} />
+    <Route path='/postJob' element={<PostJob/>} />
+    <Route path='/postInternship' element={<PostInternship/>} />
+    <Route path='/userApplication' element={<UserApplications/>} />
   
   </Routes>
   <DownNav/>

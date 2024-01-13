@@ -133,19 +133,25 @@ Book marks
 ):
 (
 
-  
+  <>
   <Link to="/register" >   <button  className='btn4'>
   Register</button></Link>
+  <div className="admin">
+
+<Link to={"/adminLog"}>
+<button id='admin'> Admin Login</button>
+</Link>
+</div>
+  </>
+
+
 
   ) 
 }
 
 
+<p className='text-red-300'>Hire Talent</p>
 
-<div className="hire2">
-    <hr />
-<p>Heir Talent</p>
-</div>
       </div>
     </>
   );

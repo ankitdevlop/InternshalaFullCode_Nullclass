@@ -59,12 +59,12 @@ textarea{
     width: 100%px;
     margin-left: 0px;
    }
-   .close{
+   .close2{
     background: #ffff;
     color: black;
     font-size: 25px;
     position: relative;
-    left: 45.4%;
+    left: 42%; 
     width: 40px;
    }
 }

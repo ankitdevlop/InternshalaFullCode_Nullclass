@@ -4,7 +4,7 @@ import first from "../../Assets/Firstslide.png"
 import second from "../../Assets/secondslide.webp"
 import third from "../../Assets/thirdsilde.webp"
 import fourth from "../../Assets/fourthslide.webp"
-import org from "../../Assets/org.png"
+
 import "./Home.css"
 import "./Home.css"
 import Jobs from './Jobs'
@@ -14,7 +14,7 @@ import axios from 'axios'
 
 
 function Home() {
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Big Brands');
 const user=useSelector(selectUser);
 const [InterShipData,setInterShipData]=useState([]);
 useEffect(()=>{
@@ -32,7 +32,37 @@ try {
     (item) => !selectedCategory || item.category === selectedCategory
   );
 
- 
+//   For Image Slide
+
+const [currentSlide, setCurrentSlide] = useState(0);
+
+const handleSlide = (direction) => {
+  const container = document.getElementById('container');
+  const step = 100; // Adjust this value based on the width of your images or desired sliding distance
+
+  if (direction === 'left') {
+    setCurrentSlide((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : 0));
+  } else {
+    setCurrentSlide((prevSlide) => (prevSlide < 3 /* Adjust the number based on the total number of slides */ ? prevSlide + 1 : 3));
+  }
+
+  sideScroll(container, direction, 25, step, 10);
+};
+//  For InternShips
+const [currentSlide2, setCurrentSlide2] = useState(0);
+
+const handleSlide2 = (direction) => {
+  const container2 = document.getElementById('container2');
+  const step = 100; // Adjust this value based on the width of your images or desired sliding distance
+
+  if (direction === 'left') {
+    setCurrentSlide2((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : 0));
+  } else {
+    setCurrentSlide2((prevSlide) => (prevSlide < 3 /* Adjust the number based on the total number of slides */ ? prevSlide + 1 : 3));
+  }
+
+  sideScroll2(container2, direction, 25, step, 10);
+};
   
   return (
     <>
@@ -48,30 +78,43 @@ try {
 
       (
         <>
-        <h1 className='flex text-center text-4xl font-bold'>Make your dream career a reality </h1>
-            <p className='text-center text-xl font-bold'>Trending on InternArea 🔥</p>
+        <h1 className='flex text-center text-3xl font-bold'>Make your dream career a reality </h1>
+            <p className='text-center text-xl font-bold mt-2'>Trending on InternArea 🔥</p>
       </>
     
       )
       }
     </div>
-    <div className="imgs">
-      
- <div className="slide flex juc mt-10" id="imageSlider">
-<img src={first} alt="" className=' cursor-pointer' />
-<img src={second} alt=""className=' cursor-pointer' />
-<img src={third} alt=""className=' cursor-pointer' />
-<img src={fourth} alt=""className=' cursor-pointer' />
- </div>
- </div>
+    <div>
+      <div id='container' className="imgs flex justify-center">
+        <div className="slide flex juc mt-10" id="content">
+        <img  className="slide_Img" src={first} alt="" srcset="" />
+  <img  className="slide_Img" src={second} alt="" srcset="" />
+  <img className="slide_Img"  src={third} alt="" srcset="" />
+  <img  className="slide_Img" src={fourth} alt="" srcset="" />
+        </div>
+        
+      </div>
+      <div className="flex BUttons">
+        <button className='back' onClick={() => handleSlide('left')} id='slideBack'>
+          <i className="bi bi-chevron-left"></i>
+        </button>
+        <button className='next' onClick={() => handleSlide('right')} id='slide'>
+          <i className="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    
+    </div>
  <div className="infosys">
 
 
- <div className="info-inter mt-12">
+ <div className="info-inter">
 
+<div className="t mt-16">
 
-  <h1 className='text-center text-4xl mt-8 '>Latest internships on InternArea</h1>
-<div className="categories flex flex-wrap mt-5 ">
+  <h1 className='text-center text font-bold  '>Latest internships on InternArea</h1>
+</div>
+<div className="categories flex flex-wrap mt-14 ">
   <p>POPULAR CATEGORIES:</p> 
 
   <span  className={`category mr-4 ml-6 ${
@@ -104,25 +147,25 @@ try {
 </div>
 </div>
   {/*  For internship sections */}
- <div className="internships ">
+ <div className="internships"id='container2' >
 
 
-<div className="internShip-Info flex">
+<div className="internShip-Info flex" >
 {/*  Firs Container */}
 {filteredInternships.map((item) => (
         <div className="int-1 mt-6" >
-        <p className='mb-4' id='boxer'> <i class="bi bi-arrow-up-right text-blue-500"></i> Actively hiring </p>
+        <p className='mb-4 mt-3' id='boxer'> <i class="bi bi-arrow-up-right text-blue-500"></i> Actively hiring </p>
       <p>{item.title}</p> 
-      <img src={org}  id="org" alt="" className='w-12 float-end mt-3' />
+  
       <small className='text-slate-400 text-sm'>{item.company}</small>
-      <hr />
-      <p><i class="bi bi-geo-alt text-slate-400"></i>  {item.location}</p>
-      <p><i class="bi bi-cash-stack text-slate-400"></i> {item.stipend}</p>
-      <p> <i class="bi bi-calendar4 text-slate-400"></i> {item.Duration}</p>
+      <hr className='mt-5' />
+      <p className='mt-3'><i class="bi bi-geo-alt text-slate-400"></i>  {item.location}</p>
+      <p className='mt-1'><i class="bi bi-cash-stack text-slate-400"></i> {item.stipend}</p>
+      <p className='mt-1'> <i class="bi bi-calendar4 text-slate-400"></i> {item.Duration}</p>
       
-      <div className="more flex justify-between mt-8">
-        <span className='bg-slate-200 text-slate-400' >Internship</span>
-        <Link to={`/details?q=${item?._id}`}>  <span className='text-blue-500 mr-2'>View details  </span></Link>
+      <div className="more flex justify-between mt-6">
+        <span className='bg-slate-200 text-slate-400 w-20 rounded-sm text-center' >Internship</span>
+        <Link to={`/details?q=${item?._id}`}>  <span className='text-blue-500 mr-2'>View details <i class="bi bi-chevron-right"></i>  </span></Link>
           </div>
       </div>
       ))}
@@ -131,41 +174,49 @@ try {
 
 </div>
  </div>
+ <div className="flex BUttons mt-9">
+        <button className='back' onClick={() => handleSlide2('left')} id='slideBack'>
+          <i className="bi bi-chevron-left"></i>
+        </button>
+        <button className='next' onClick={() => handleSlide2('right')} id='slide'>
+          <i className="bi bi-chevron-right"></i>
+        </button>
+      </div>
 <Jobs/>
  </div>
 
 
  <hr />
- <div className="analytics flex flex-wrap justify-center items-center text-center">
-  <div className="text-block">
+ <div className="analytics mt-8 flex flex-wrap justify-center items-center text-center">
+  <div className="text-block m-5 ">
     <span className='font-bold text-6xl text-blue-600'>300K+</span>
     <p>companies hiring</p>
   </div>
-
-  <div className="text-block">
+<br />
+  <div className="text-block m-5 ">
     <span className='font-bold text-6xl text-blue-600'>10K+</span>
     <p>new openings everyday</p>
   </div>
 <br />
   <hr className="mx-4 my-8 border-t border-blue-600" />
 
-  <div className="text-block">
+  <div className="text-block m-5 ">
     <span className='font-bold text-6xl text-blue-600'>21Mn+</span>
     <p>active students</p>
   </div>
 
-  <div className="text-block">
+  <div className="text-block m-5 ">
     <span className='font-bold text-6xl text-blue-600'>600K+</span>
     <p>learners</p>
   </div>
 
 
 </div>
-<div className="logins flex bg-blue-600 h-32">
+<div className="logins flex  h-32 mt-8">
 <div className="cont">
-<p className="flex justify-center text-white text-2xl items-center mt-4">Empower your career with InternArea today</p>
+<p className="flex justify-center text-white text-xl items-center m-5 w-30">Empower your career with InternArea today</p>
 </div>
-<div className="loginfo flex justify-between">
+<div className="log flex">
 
 
 <Link href="/register" id='buttons' class="flex items-center  bg-white h-9 justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
@@ -177,7 +228,7 @@ try {
                        <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.7592 25.1975 27.56 26.805 26.0133 27.9758C26.0142 27.975 26.015 27.975 26.0158 27.9742L31.1742 32.3392C30.8092 32.6708 36.6667 28.3333 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#1976D2"/>
                    </svg>
                </div>
-               <h1 class="px-4 py-3 w-5/6 text-center text-sm text-gray-600 font-bold ">Sign in with Google</h1>
+               <p class="px-4 py-3 w-5/6 text-center text-sm text-gray-600 font-bold ">Sign in with Google</p>
   </Link>
   <Link to="/register">
     <button className='btn6 '> Register</button></Link>
@@ -186,6 +237,36 @@ try {
 
     </>
   )
+}
+
+
+function sideScroll(element, direction, speed, distance, step) {
+  let scrollAmount = 0;
+  const slideTimer = setInterval(function () {
+    if (direction === 'left') {
+      element.scrollLeft -= step;
+    } else {
+      element.scrollLeft += step;
+    }
+    scrollAmount += step;
+    if (scrollAmount >= distance) {
+      window.clearInterval(slideTimer);
+    }
+  }, speed);
+}
+function sideScroll2(element, direction, speed, distance, step) {
+  let scrollAmount = 0;
+  const slideTimer = setInterval(function () {
+    if (direction === 'left') {
+      element.scrollLeft -= step;
+    } else {
+      element.scrollLeft += step;
+    }
+    scrollAmount += step;
+    if (scrollAmount >= distance) {
+      window.clearInterval(slideTimer);
+    }
+  }, speed);
 }
 
 export default Home

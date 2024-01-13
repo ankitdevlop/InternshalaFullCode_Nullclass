@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../Features/Userslice';
@@ -29,7 +30,7 @@ const navigate=useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://internareabackend.onrender.com/job/${id}`);
+        const response = await axios.get(`https://internareabackend.onrender.com/api/job/${id}`);
         setJobOpning(response.data.data);
         const { company, category } = response.data.data;
         setCompany(company);
@@ -66,7 +67,6 @@ const navigate=useNavigate();
        alert("Fill the Blanks")
      }
      const bodyJosn={
-       InternShipId:id,
        coverLetter:coverLetter,
        user:user,
        ApplicationId:id,
@@ -74,7 +74,7 @@ const navigate=useNavigate();
        company:company,
      }
      
-     await axios.post('https://internareabackend.onrender.com/application',bodyJosn).then((res)=>{
+     await axios.post('https://internareabackend.onrender.com/api/application/',bodyJosn).then((res)=>{
        alert("Application Submitted")
        navigate("/")
      }).catch((err)=>{
@@ -104,7 +104,7 @@ const navigate=useNavigate();
             <p className='mt-3  mr-3'> <i class="bi bi-hourglass-split"></i>&nbsp; Apply By  <br />{jobOpning.stipend}</p>
           </div>
           <div className="flex">
-            <p className='bg-green-100 text-green-400 rounded-md ml-3 text-sm'><i class="bi bi-clock-history"></i>&nbsp; Posted just now</p>
+            <p className='bg-green-100 text-green-400 rounded-md ml-3 text-sm'><i class="bi bi-clock-history"></i>&nbsp; Posted {new Date(jobOpning?.createdAt).toLocaleDateString()}</p>
 
      
           </div>
@@ -149,7 +149,7 @@ Learn Business Communication
         <div div className='application-page'>
         <div className="bg">
 
-       <button className='close' onClick={hideDiv}><i class="bi bi-x"></i></button>
+       <button className='close2' onClick={hideDiv}><i class="bi bi-x"></i></button>
        <p>Applying for {jobOpning.title}</p>
      
 <p className='mt-3 text-xl font-bold text-start mb-3'>About {jobOpning.company}</p>
@@ -221,7 +221,15 @@ Learn Business Communication
 
 
       <div className="submit flex justify-center">
-        <button className='submit-btn' onClick={resumeSubmitted} >Submit application</button>
+      {user?(
+    <button className='submit-btn' onClick={resumeSubmitted} >Submit application</button>
+        ):(
+          <Link to={"/register"}>
+          <button className='submit-btn'  >Submit application</button>
+          </Link>
+        )
+          
+        }
       </div>
         </div>
         </div>

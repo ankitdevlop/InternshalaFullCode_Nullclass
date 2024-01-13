@@ -130,8 +130,9 @@ border-radius: 2px;
 @media screen and (max-width: 768px) {
   .search2{
     position: relative;
-    left: 44%;
-    top: -5.5rem;
+    left: 69%;
+    top: -5.1rem;
+
   }
   .search2 input{
   
@@ -148,7 +149,7 @@ border-radius: 2px;
     top: -7.6rem;
   width: 50px;
   font-size: 12px;
-  left: 67%;
+  left: 89%;
   }
   .hire2{
     position: relative;
@@ -175,4 +176,4 @@ position: relative;
 top: -1.5rem;
 margin-left: -13px;
   }
- }
+}

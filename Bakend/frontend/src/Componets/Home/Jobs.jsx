@@ -1,11 +1,27 @@
-import React, { useState ,useEffect} from 'react'
+import React, { useState ,useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import org from "../../Assets/org.png"
 
+  
 
 function Jobs() {
-    const [selectedCategory, setSelectedCategory] = useState('');
+  //   For Image Slide
+
+const [currentSlide3, setCurrentSlide3] = useState(0);
+
+const handleSlide = (direction) => {
+  const container = document.getElementById('container3');
+  const step = 100; // Adjust this value based on the width of your images or desired sliding distance
+
+  if (direction === 'left') {
+    setCurrentSlide3((prevSlide) => (prevSlide > 0 ? prevSlide - 1 : 0));
+  } else {
+    setCurrentSlide3((prevSlide) => (prevSlide < 3  ? prevSlide + 1 : 3));
+  }
+
+  sideScroll2(container, direction, 25, step, 10);
+};
+    const [selectedCategory, setSelectedCategory] = useState('Big Brands');
     const [JobsData , setJobData]=useState('')
 
     useEffect(()=>{
@@ -22,6 +38,7 @@ function Jobs() {
     const filteredJobs = Array.isArray(JobsData)
     ? JobsData.filter((item) => !selectedCategory || item.category === selectedCategory)
     : [];
+  
   return (
     <div>
       <div className="info-inter mt-12">
@@ -60,28 +77,28 @@ function Jobs() {
 </div>
 </div>
 {/*  For internship sections */}
-<div className="internships ">
+<div className="internships " id='container3'>
 
 
-<div className="internShip-Info flex">
+<div className="internShip-Info flex" id='content2'>
 {/*  Firs Container */}
 {filteredJobs.map((item) => (
-      <div className="int-1 mt-6 w-3/4 " >
-      <p className='mb-4' id='boxer'> <i class="bi bi-arrow-up-right text-blue-500"></i> Actively hiring </p>
+      <div className="int-1 mt-6 " >
+      <p className='mb-4 mt-3' id='boxer'> <i class="bi bi-arrow-up-right text-blue-500"></i> Actively hiring </p>
     <p>{item.title}</p> 
-    <img src={org}  id="org" alt="" className='w-8 float-end ' />
+ 
     <small className='text-slate-400 text-sm'>{item.company}</small>
     <div id='hr'>
 
-    < hr />
+    < hr className='mb-2'/>
     </div>
-    <p><i class="bi bi-geo-alt text-slate-400"></i>  {item.location}</p>
-    <p><i class="bi bi-cash-stack text-slate-400"></i> {item.CTC}/year</p>
+    <p className='mt-1'><i class="bi bi-geo-alt text-slate-400"></i>  {item.location}</p>
+    <p className='mt-1'><i class="bi bi-cash-stack text-slate-400"></i> {item.CTC}/year</p>
   
     
-    <div className="more flex justify-between mt-8">
-      <span className='bg-slate-200 text-black-300 text-sm' >Jobs</span>
-      <Link to={`/detailsJob?q=${item?._id}`}>  <span className='text-blue-500 mr-2'>View details  </span></Link>
+    <div className="more flex justify-between mt-14">
+      <span className='bg-slate-200 text-black-300 text-sm rounded-sm w-10 text-center' >Jobs</span>
+      <Link to={`/detailsJob?q=${item?._id}`}>  <span className='text-blue-500 mr-2'>View details <i class="bi bi-chevron-right"></i> </span></Link>
         </div>
     </div>
     ))}
@@ -90,8 +107,31 @@ function Jobs() {
 
 </div>
 </div>
+<div className="flex BUttons mt-9">
+        <button className='back' onClick={() => handleSlide('left')} id='slideBack'>
+          <i className="bi bi-chevron-left"></i>
+        </button>
+        <button className='next' onClick={() => handleSlide('right')} id='slide'>
+          <i className="bi bi-chevron-right"></i>
+        </button>
+      </div>
     </div>
   )
 }
+function sideScroll2(element, direction, speed, distance, step) {
+  let scrollAmount = 0;
+  const slideTimer = setInterval(function () {
+    if (direction === 'left') {
+      element.scrollLeft -= step;
+    } else {
+      element.scrollLeft += step;
+    }
+    scrollAmount += step;
+    if (scrollAmount >= distance) {
+      window.clearInterval(slideTimer);
+    }
+  }, speed);
+}
+
 
 export default Jobs

@@ -5,8 +5,9 @@ import Nav2 from './Nav2'
 import { Link, useNavigate } from 'react-router-dom'
 import {  signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, provider } from '../../firebase/firebaseConfig';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../Features/Userslice';
+
 
 
 
@@ -122,6 +123,7 @@ signOut(auth);
   }
   
 
+
   
   return (
     <div> 
@@ -145,9 +147,9 @@ signOut(auth);
 {user?(
   <>
   <div className="profile">
-  <Link to={"/profile"} >
+  <Link to={`/profile`} >
     <img className='rounded-full w-10' id='picpro'  src={user?.photo} alt="" srcset="" /> 
-    <i id='up' onMouseMoveCapture={ShowProfileDetialis}  onMouseOutCapture={ hideProfileDetialis}class="proName bi bi-caret-down-fill"></i>
+    <i id='up' onMouseMoveCapture={ShowProfileDetialis}  onMouseOutCapture={ hideProfileDetialis}class="proName bi bi-caret-up-fill"></i>
     </Link>
     
   </div>
@@ -159,10 +161,23 @@ signOut(auth);
 
   
   <div className="auth">
+    
   <Link onClick={showDiv3}>
     <button className='btn1'>Login</button></Link>
   <Link to="/register">
     <button className='btn2'> Register</button></Link>
+<div className="flex mt-7">
+
+
+Hire talent
+</div>
+
+  <div className="admin">
+
+<Link to={"/adminLog"}>
+<button id='admin'> Admin Login</button>
+</Link>
+</div>
 
 </div>
   ) 
@@ -176,151 +191,10 @@ signOut(auth);
       </nav>
       <Nav2/>
 
-      {isDivVisible && (
-  <>
-
-
-<div class="md:flex flex-col md:flex-row w-72" id='intershipColo'>
-  <div class="flex flex-col w-96  text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" id='drop'>
-    
-  <nav class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-    {/*  This is navigation bar */}
-    <span onClick={() => showContent('loc')} className={`block px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-gray-700  hover:bg-blue-200 hover:text-blue-400  focus:bg-blue-200 focus:outline-none focus:shadow-outline w-36 ${activeContent === 'loc' && 'active'}`}>Top Locations</span>
-          <span onClick={() => showContent('pro')} className={`block px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-gray-700  hover:bg-blue-200 hover:text-blue-400  focus:bg-blue-200 focus:outline-none focus:shadow-outline w-16${activeContent === 'pro' && 'active'}`}>Profile</span>
-          <span onClick={() => showContent('cat')} className={`block px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-gray-700  hover:bg-blue-200 hover:text-blue-400  focus:bg-blue-200 focus:outline-none focus:shadow-outline w-36 ${activeContent === 'cat' && 'active'}`}>Top Categories</span>
-          <span onClick={() => showContent('exp')} className={`block px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-gray-700  hover:bg-blue-200 hover:text-blue-400  focus:bg-blue-200 focus:outline-none focus:shadow-outline w-36 ${activeContent === 'exp' && 'active'}`}>Explore More Internships</span>
-
-
-      <div class="flex items-center justify-center">
-        <hr class="my-2 border-t  -mt-24  transform rotate-90 border-gray-400 w-1/2"/>
-      </div>
-
-{/*  For location */}
-<div className={`location ${activeContent === 'loc' ? 'visible' : 'hidden'}`} id='loc'>
-
-<p className='mt-2 text-slate-500'>Intern In Bangalore</p>
-<p className='mt-2 text-slate-500'>Internship In delhi</p>
-<p className='mt-2 text-slate-500'>Internship in Hyderabad</p>
-
-<p className='mt-2 text-slate-500'>Internship in Mumbai</p>
-<p className='mt-2 text-slate-500'>Internship in Chennai</p>
-
-</div>
-
-{/* For Profile */}
-<div class={`Profile ${activeContent === 'pro' ? 'visible' : 'hidden'}`} id='pro' >
-
-
-  <p className='mt-2 text-slate-500'>Finance Internship</p>
-  <p className='mt-2 text-slate-500'>Finance Internship</p>
-  
-  <p className='mt-2 text-slate-500'>Architecture Internship</p>
-
-  <p className='mt-2 text-slate-500'>Mechanical Internship</p>
-  <p className='mt-2 text-slate-500'>HR Internship</p>
-</div>
-
-{/*  For Top Category */}
-<div className={`catogry ${activeContent === 'cat' ? 'visible' : 'hidden'}`} id='cat' >
-
-         
-        
-            <p className='mt-2 text-slate-500'>Humanities Internship</p>
-            <p className='mt-2 text-slate-500'>Science Internship</p>
-            <p className='mt-2 text-slate-500'>Science Internship</p>
-       
-            <p className='mt-2 text-slate-500'>Internships for Women</p>
-            <p className='mt-2 text-slate-500'>View all internships</p>
-</div>
-{/*  For Top Explore More */}
-<div className={`Explore ${activeContent === 'exp' ? 'visible' : 'hidden'}`}  id='exp'>
-<p className='mt-2 text-slate-500'>Internships by Category</p>
-
-<p className='mt-2 text-slate-500'>
-Internships by Location</p>
-</div>
-
-    
-    </nav>
-    
-  </div>
-
-
- 
-</div>
-
-  </>
-      )}
 
 
 
-{isDivVisible2 && (
-  <>
 
-
-<div class="md:flex flex-col md:flex-row  w-72 h-40" id='jobsDrop'>
-  <div class="flex flex-col w-96 h-72 text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0">
-    
-  <nav class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-    {/*  This is navigation bar */}
-    <span onClick={() => showContent('loc2')} className={`block px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-gray-700  hover:bg-blue-200 hover:text-blue-400  focus:bg-blue-200 focus:outline-none focus:shadow-outline w-36 ${activeContent === 'loc2' && 'active'}`}>Top Locations</span>
-          <span onClick={() => showContent('cat2')} className={`block px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-gray-700  hover:bg-blue-200 hover:text-blue-400  focus:bg-blue-200 focus:outline-none focus:shadow-outline w-16${activeContent === 'cat2' && 'active'}`}>Top Catogery</span>
-          <span onClick={() => showContent('more')} className={`block px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-gray-700  hover:bg-blue-200 hover:text-blue-400  focus:bg-blue-200 focus:outline-none focus:shadow-outline w-36 ${activeContent === 'more' && 'active'}`}>Explore More Jobs</span>
-
-
-      <div class="flex items-center justify-center">
-        <hr class="my-2 border-t  -mt-24  transform rotate-90 border-gray-400 w-1/2"/>
-      </div>
-
-{/*  For location */}
-<div className={`location2 ${activeContent === 'loc2' ? 'visible' : ''}`} id='loc2'>
-
-<p className='mt-2 text-slate-500'>Intern In Bangalore</p>
-<p className='mt-2 text-slate-500'>Internship In delhi</p>
-<p className='mt-2 text-slate-500'>Internship in Hyderabad</p>
-
-<p className='mt-2 text-slate-500'>Internship in Mumbai</p>
-<p className='mt-2 text-slate-500'>Internship in Chennai</p>
-<p className='mt-2 text-slate-500'>Internship in pune</p>
-</div>
-
-{/* For Profile */}
-<div class={`catogry2 ${activeContent === 'cat2' ? 'visible' : 'hidden'}`} id='cat2' >
-
-
-  <p className='mt-2 text-slate-500'>Finance Internship</p>
-  <p className='mt-2 text-slate-500'>Finance Internship</p>
-  
-  <p className='mt-2 text-slate-500'>Architecture Internship</p>
-
-  <p className='mt-2 text-slate-500'>Mechanical Internship</p>
-  <p className='mt-2 text-slate-500'>HR Internship</p>
-</div>
-
-{/*  For Top Category */}
-<div className={`catogry ${activeContent === 'more' ? 'visible' : 'hidden'}`} id='more' >
-
-         
-        
-            <p className='mt-2 text-slate-500'>Humanities Internship</p>
-            <p className='mt-2 text-slate-500'>Science Internship</p>
-            <p className='mt-2 text-slate-500'>Science Internship</p>
-       
-            <p className='mt-2 text-slate-500'>Internships for Women</p>
-            <p className='mt-2 text-slate-500'>View all internships</p>
-</div>
-
-    
-    </nav>
-    
-  </div>
-
-
- 
-</div>
-
-  </>
-      )}
       
    
 
@@ -444,6 +318,58 @@ Internships by Location</p>
       </div>
 )}
       
+      {isDivVisible && (
+  <>
+<div className="profile-dropdown-2">
+
+<div className="left-section">
+  <p>Top Locations</p>
+  <p>Profile</p>
+  <p>Top Category</p>
+  <p>Explore More Internships</p>
+</div>
+<div className="line flex bg-slate-400">
+
+</div>
+<div className="right-section">
+  <p>Intern at India</p>
+  <p>Intern at India</p>
+  <p>Intern at India</p>
+  <p>Intern at India</p>
+  <p>Intern at India</p>
+</div>
+      </div>
+
+  </>
+      )}
+
+      
+{isDivVisible2 && (
+  <>
+
+<div className="profile-dropdown-1">
+
+<div className="left-section">
+  <p>Top Locations</p>
+  <p>Profile</p>
+  <p>Top Category</p>
+  <p>Explore More Internships</p>
+</div>
+<div className="line flex bg-slate-400">
+
+</div>
+<div className="right-section">
+  <p>Intern at India</p>
+  <p>Intern at India</p>
+  <p>Intern at India</p>
+  <p>Intern at India</p>
+  <p>Intern at India</p>
+</div>
+      </div>
+
+
+  </>
+      )}
           </div>
   )
 }

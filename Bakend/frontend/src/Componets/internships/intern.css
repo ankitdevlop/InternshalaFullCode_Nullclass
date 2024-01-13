@@ -82,13 +82,13 @@
       position: relative;
       top: 1%;
     }
-    .close{
+    .close2{
       background: #ffff;
       color: black;
       font-size: 25px;
       position: relative;
-      left: 45.4%;
-      width: 40px;
+      left: 43%;   
+         width: 40px;
      }
     
   }

@@ -39,6 +39,7 @@ function Jobs() {
       try {
         const response = await axios.get('https://internareabackend.onrender.com/api/job');
         setJobOpening(response.data.data);
+        setFilteredJobs(response.data.data)
       } catch (error) {
         console.log(error);
       }
@@ -121,7 +122,7 @@ function Jobs() {
 {/*  Avaliable Internships */}
 <div className="all-internships">
   <div className="show flex justify-center">
-  <p className=' filterico text-center' onClick={showDiv} > <i class="bi bi-funnel text-blue-500"></i>Filters</p>
+  <p className=' filterico text-center shadow-lg' onClick={showDiv} > <i class="bi bi-funnel text-blue-500"></i>Filters</p>
 
   </div>
   <p className='font-bold text-lg  ' id='titleHead'>
@@ -129,10 +130,7 @@ function Jobs() {
 
     </p>
     {filteredJobs.map((item,index) => (
-        
 
-    
-      
         <div class="shadow-lg rounded-lg bg-white m-7 " id='display'  key={index}>
             <div className='m-4'>
             
@@ -151,10 +149,10 @@ function Jobs() {
             <p className='mt-3'> <i class="bi bi-cash-stack"></i> salary  <br />{item.CTC}</p>
           </div>
             <p className='bg-slate-300 text-slate-500 text-sm w-16 mt-2'>  Jobs</p>
-            <p className='text-green-300 text-sm mt-4'> <i class="bi bi-clock-history"></i> 2 days ago</p>
+            <p className='text-green-300 text-sm mt-4'> <i class="bi bi-clock-history"></i> {new Date(item?.createdAt).toLocaleDateString()}</p>
             </div>
             <div className="flex justify-end mb-11 -mt-12">
-              <hr  className='bg-slate-500 w-full -mt-12'  />
+            
               <Link to={`/detailsJob?q=${item?._id}`}>
               <button id='viewButtons2' className='bg-transparent text-blue-500'>View Details</button>
               </Link>
@@ -168,7 +166,7 @@ function Jobs() {
   <>
 
 <div className="filter-section2 w-full " >
-  <p className='text-center' onClick={hideDiv}> <i class="bi bi-funnel text-blue-500"></i>Filters</p>
+  <p className=' text-center shadow-lg' onClick={hideDiv}> <i class="bi bi-funnel text-blue-500"></i>Filters</p>
 
 <div className="fill flex flex-col ml-2">
   
